@@ -1,0 +1,24 @@
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Start and enable Nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Modify Nginx configuration on remote
+  ansible.builtin.copy:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-available/default
+    remote_src: yes
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Reload Nginx
+  service:
+    name: nginx
+    state: reloaded

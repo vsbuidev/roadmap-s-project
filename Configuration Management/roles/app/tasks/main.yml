@@ -1,0 +1,21 @@
+- name: Upload static website tarball
+  copy:
+    src: website.tar.gz
+    dest: /var/www/html/website.tar.gz
+    owner: www-data
+    group: www-data
+    mode: '0644'
+
+- name: Extract website tarball
+  unarchive:
+    src: /var/www/html/website.tar.gz
+    dest: /var/www/html/
+    remote_src: yes
+
+- name: Set correct permissions
+  file:
+    path: /var/www/html/
+    state: directory
+    owner: www-data
+    group: www-data
+    recurse: yes

@@ -1,0 +1,7 @@
+- name: Upload public SSH key
+  copy:
+    src: id_rsa.pub
+    dest: /home/{{ ansible_user }}/.ssh/authorized_keys
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0600'
