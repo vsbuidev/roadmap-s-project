@@ -2,12 +2,12 @@
 
 HASH_FILE="log_hashes.json"
 
-# Function to compute the SHA-256 hash of a file
+# function to compute the SHA-256 hash of a file
 compute_hash() {
     sha256sum "$1" | awk '{print $1}'
 }
 
-# Function to store hashes in the JSON file
+# function to store hashes in the JSON file
 store_hashes() {
     echo "Storing hashes..."
     declare -A file_hashes
@@ -17,7 +17,7 @@ store_hashes() {
     echo "{$(for key in "${!file_hashes[@]}"; do echo "\"$key\": \"${file_hashes[$key]}\","; done | sed 's/,$//')}" > "$HASH_FILE"
 }
 
-# Function to load stored hashes from the JSON file
+# function to load stored hashes from the JSON file
 load_stored_hashes() {
     if [[ ! -f "$HASH_FILE" ]]; then
         echo "{}"
@@ -26,7 +26,7 @@ load_stored_hashes() {
     fi
 }
 
-# Function to check the integrity of the log files
+# function to check the integrity of the log files
 check_integrity() {
     stored_hashes=$(load_stored_hashes)
     tampered_files=()
@@ -53,7 +53,7 @@ check_integrity() {
     fi
 }
 
-# Function to manually re-initialize the log integrity check
+# function to manually re-initialize the log integrity check
 reinitialize_integrity() {
     echo "Enter the path to the log file or directory:"
     read log_path
@@ -66,7 +66,7 @@ reinitialize_integrity() {
     echo "Integrity checks have been reinitialized."
 }
 
-# Main program execution
+# main program execution
 echo "Do you want to (1) Check integrity or (2) Reinitialize integrity?"
 read action
 
